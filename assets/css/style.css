@@ -3,7 +3,7 @@
     box-sizing: border-box;
     background: white;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 18px;
+    font-size: 20px;
     color: black;
 }
 /* Header styles */
@@ -15,7 +15,7 @@ h1 {
 h2 {
     position: absolute;
     margin-left: 1000px;
-    font-size: 20px;
+    font-size: 18px;
 }
 /* Center items */
 body {
@@ -36,4 +36,10 @@ main {
     margin-right: 350px;
     padding-top: 100px;
     text-align: center;
+}
+#start-button {
+    background: purple;
+    color: white;
+    border-radius: 10px;
+    padding: 10px 20px;
 }
