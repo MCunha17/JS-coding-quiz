@@ -1,22 +1,39 @@
-/* Global Styles */
+/* Global styles */
 * {
     box-sizing: border-box;
     background: white;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 18px;
     color: black;
 }
-
+/* Header styles */
+h1 {
+    font-size: 42px;
+    text-align: center;
+}
+/* Timer style */
+h2 {
+    position: absolute;
+    margin-left: 1000px;
+    font-size: 20px;
+}
+/* Center items */
 body {
+    position: relative;
+}
+/* Timer style */
+#timer-container {
+    position: absolute;
+    margin-left: 800px;
+}
+/* Main style */
+main {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 350px;
+    margin-right: 350px;
     padding-top: 100px;
-}
-
-h1 {
-    font-size: 42px;
     text-align: center;
 }
