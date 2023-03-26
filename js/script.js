@@ -1,13 +1,13 @@
 // Variable Definitions
 var startButton = document.querySelector("#start-button");
 var timer = document.querySelector("timer span");
-var question = document.querySelector("#question");
+var questionText = document.querySelector("#question-text");
 var optionsContainer = document.querySelector("#options-container");
 
 // Event Listiners
 startButton.addEventListener("click", startQuiz);
 
-// Index
+// Question Index
 var questions = [
     {
         question: "Question 1",
@@ -28,7 +28,8 @@ var questions = [
 
 // Function Definitions
 function startQuiz() {
-    question.textContent= questions[currentQuestionIndex].question;
+    questionText.textContent= questions[currentQuestionIndex].question;
+    questions[currentQuestionIndex].question;
     optionsContainer.innerHTML= "";
     for (let option of questions[currentQuestionIndex].options)
 }
