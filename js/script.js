@@ -4,6 +4,10 @@ var timer = document.querySelector("timer span");
 var questionText = document.querySelector("#question-text");
 var optionsContainer = document.querySelector("#options-container");
 
+let currentQuestionIndex = 0;
+let timeLeft = 0;
+let TimerInterval;
+
 // Event Listiners
 startButton.addEventListener("click", startQuiz);
 
@@ -13,12 +17,12 @@ var questions = [
         question: "Question 1",
         options: ["option 1", "option 2", "option 3", "option 4"],
         answer: "answer",
-    }
+    },
     {
         question: "Question 1",
         options: ["option 1", "option 2", "option 3", "option 4"],
         answer: "answer",
-    }
+    },
     {
         question: "Question 1",
         options: ["option 1", "option 2", "option 3", "option 4"],
@@ -29,18 +33,23 @@ var questions = [
 // Function Definitions
 function startQuiz() {
     questionText.textContent= questions[currentQuestionIndex].question;
-    questions[currentQuestionIndex].question;
     optionsContainer.innerHTML= "";
-    for (let option of questions[currentQuestionIndex].options)
+    for (let option of questions[currentQuestionIndex].options) 
+    {
+    let option = document.createElement("div");
+    option.classList.add("option");
+    option.textContent= option;
+    option.addEventListener("click", selectOption);
+    optionsContainer.appendChild(option);
+}
+    startTimer ();
 }
 
-    showQuestion ();
-    startTimer ();
-
 function startTimer() {
-    setInterval(function() {
+    timerInterval= setInterval(function() {
         timeLeft--;
-        timerEl.textContent= timeRemaining;
+        timer.textContent= timeRemaining;
         if (timeRemaining === 0) endQuiz();
     }, 1000);
 }
+
