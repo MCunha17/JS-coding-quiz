@@ -17,19 +17,24 @@ startButton.addEventListener("click", startQuiz);
 // Question Index
 var questions = [
     {
-        question: "Question 1",
-        options: ["option 1", "option 2", "option 3", "option 4"],
-        answer: "option 1",
+        question: "What does the acronym 'DOM' stand for?",
+        options: ["1. Document Object Model", "2. Data Object Model", "3. Document Object Method", "4. Data Objecet Method"],
+        answer: "1. Document Object Model",
     },
     {
-        question: "Question 2",
-        options: ["option 1", "option 2", "option 3", "option 4"],
-        answer: "option 2",
+        question: "Which of the following is not a data type in JavaScript?",
+        options: ["1. string", "2. boolean", "3. object", "4. number array"],
+        answer: "4. number array",
     },
     {
-        question: "Question 3",
-        options: ["option 1", "option 2", "option 3", "option 4"],
-        answer: "option 3",
+        question: "Which of the following is the correct syntax for an if statement in JavaScript?",
+        options: ["1. if (condition) {code block}", "2. if condition {code block}", "3. if [condition] {cod block}", "4. if (condition) then {code block}"],
+        answer: "1. if (condition) {code block}",
+    },
+    {
+        question: "Which of the following is the correct syntax for an if statement in JavaScript?",
+        options: ["1. if (condition) {code block}", "2. if condition {code block}", "3. if [condition] {cod block}", "4. if (condition) then {code block}"],
+        answer: "1. if (condition) {code block}",
     }
 ]
 
