@@ -79,9 +79,15 @@ function selectOption(event) {
     }
     currentQuestionIndex++;
     if (currentQuestionIndex < questions.length) {
-        setTimeout(showNextQuestion, 1000);
+        setTimeout(function() {
+            resultsContainer.textContent = "";
+            showNextQuestion();
+        }, 2000);
     } else {
-        setTimeout(endQuiz, 1000);
+        setTimeout(function() {
+            resultsContainer.textContent = "";
+            endQuiz();
+        }, 2000);
     }
 }
 
