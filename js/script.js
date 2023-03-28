@@ -5,6 +5,7 @@ var questionText = document.querySelector("#question-text");
 var optionsContainer = document.querySelector("#options-container");
 var resultsContainer = document.querySelector("#results-container");
 var instructionsContainer = document.querySelector("#instructions-container");
+var highScoresContainer = document.querySelector("#high-scores-container");
 
 let currentQuestionIndex = 0;
 let timeLeft = 60;
@@ -13,6 +14,7 @@ let timerInterval;
 
 // Event Listiners
 startButton.addEventListener("click", startQuiz);
+
 
 // Question Index
 var questions = [
@@ -125,3 +127,26 @@ function endQuiz() {
     });
     optionsContainer.appendChild(saveButton);
   }
+
+  function showHighScores() {
+    let highScores = localStorage.getItem("highScores") || "";
+    let scoresList = document.createElement("ul");
+    scoresList.style.listStyleType = "none";
+    for (let score of highScores.split(";")) {
+    if (score.trim() !== "") {
+    let scoreItem = document.createElement("li");
+    scoreItem.textContent = score;
+    scoresList.appendChild(scoreItem);
+    }
+    }
+    highScoresContainer.innerHTML = "";
+    let title = document.createElement("h2");
+    title.textContent = "High Scores";
+    highScoresContainer.appendChild(title);
+    highScoresContainer.appendChild(scoresList);
+    optionsContainer.style.display = "none";
+    highScoresContainer.style.display = "block";
+    }
+
+    // Event Listener
+document.querySelector("#high-scores-button").addEventListener("click", showHighScores);

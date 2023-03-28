@@ -87,3 +87,46 @@
     margin: 0 auto;
     text-align: center;
   }
+
+  /* High Scores button */
+/* High Scores button */
+#high-scores-button {
+  color: #B46DE1;
+  border-radius: 10px;
+  padding: 10px 20px;
+  display: block;
+  margin: 0 auto;
+  margin-top: 20px;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+}
+
+/* High scores container */
+#high-scores-container {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+#high-scores-container h2 {
+  font-size: 48px;
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+#high-scores-container ul {
+  padding: 0;
+  margin: 0 auto;
+  max-width: 500px;
+  text-align: left;
+}
+
+#high-scores-container li {
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+#high-scores-container li:last-child {
+  margin-bottom: 0;
+}
