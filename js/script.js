@@ -3,7 +3,8 @@ var startButton = document.querySelector("#start-button");
 var timer = document.querySelector("#timer-span");
 var questionText = document.querySelector("#question-text");
 var optionsContainer = document.querySelector("#options-container");
-var resultsContainer = document.querySelector("#results-container")
+var resultsContainer = document.querySelector("#results-container");
+var instructionsContainer = document.querySelector("#instructions-container");
 
 let currentQuestionIndex = 0;
 let timeLeft = 60;
@@ -34,6 +35,7 @@ var questions = [
 
 // Function Definitions
 function startQuiz() {
+    instructionsContainer.style.display = "none";
     startButton.style.display = "none";
     startTimer();
     showNextQuestion();
@@ -49,21 +51,6 @@ function showNextQuestion() {
         optionElement.addEventListener("click", selectOption);
         optionsContainer.appendChild(optionElement);
     }
-}
-
-currentQuestionIndex++;
-if (currentQuestionIndex < questions.length) {
-    questionText.textContent = questions[currentQuestionIndex].question;
-    optionsContainer.innerHTML = "";
-    for (let option of questions[currentQuestionIndex].options) {
-        let optionElement = document.createElement("div");
-        optionElement.classList.add("option");
-        optionElement.textContent = option;
-        optionElement.addEventListener("click", selectOption);
-        optionsContainer.appendChild(optionElement);
-    }
-} else {
-    endQuiz();
 }
 
 function startTimer() {
