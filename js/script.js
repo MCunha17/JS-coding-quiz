@@ -71,13 +71,13 @@ function selectOption(event) {
     let correctAnswer = questions[currentQuestionIndex].answer;
     if (selectedAnswer === correctAnswer) {
         score ++;
-        resultContainer.textContent = "Correct!";
+        resultsContainer.textContent = "Correct!";
     } else {
         timeLeft -= 10;
         if (timeLeft < 0) {
             timeLeft = 0;
         }
-        resultContainer.textContent = "Incorrect!";
+        resultsContainer.textContent = "Incorrect!";
         }
         if (currentQuestionindex< questions.length -1) {
             setTimeout(showNextQuestion, 1000);
