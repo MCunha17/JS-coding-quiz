@@ -21,12 +21,12 @@ var questions = [
         answer: "option 1",
     },
     {
-        question: "Question 1",
+        question: "Question 2",
         options: ["option 1", "option 2", "option 3", "option 4"],
         answer: "option 2",
     },
     {
-        question: "Question 1",
+        question: "Question 3",
         options: ["option 1", "option 2", "option 3", "option 4"],
         answer: "option 3",
     }
@@ -34,27 +34,36 @@ var questions = [
 
 // Function Definitions
 function startQuiz() {
+    startButton.style.display = "none";
     startTimer();
-    questionText.textContent= questions[currentQuestionIndex].question;
-    optionsContainer.innerHTML= "";
-    for (let option of questions[currentQuestionIndex].options) {
-    let optionElement = document.createElement("div");
-    optionElement.classList.add("option");
-    optionElement.textContent= option;
-    optionElement.addEventListener("click", selectOption);
-    optionsContainer.appendChild(optionElement); }
+    showNextQuestion();
 }
 
 function showNextQuestion() {
-    currentQuestionIndex++;
     questionText.textContent = questions[currentQuestionIndex].question;
-    optionsContainer.innerHTML= "";
+    optionsContainer.innerHTML = "";
     for (let option of questions[currentQuestionIndex].options) {
-    let optionElement = document.createElement("div");
-    optionElement.classList.add("option");
-    optionElement.textContent= option;
-    optionElement.addEventListener("click", selectOption);
-    optionsContainer.appendChild(option); }
+        let optionElement = document.createElement("div");
+        optionElement.classList.add("option");
+        optionElement.textContent = option;
+        optionElement.addEventListener("click", selectOption);
+        optionsContainer.appendChild(optionElement);
+    }
+}
+
+currentQuestionIndex++;
+if (currentQuestionIndex < questions.length) {
+    questionText.textContent = questions[currentQuestionIndex].question;
+    optionsContainer.innerHTML = "";
+    for (let option of questions[currentQuestionIndex].options) {
+        let optionElement = document.createElement("div");
+        optionElement.classList.add("option");
+        optionElement.textContent = option;
+        optionElement.addEventListener("click", selectOption);
+        optionsContainer.appendChild(optionElement);
+    }
+} else {
+    endQuiz();
 }
 
 function startTimer() {
@@ -70,20 +79,16 @@ function selectOption(event) {
     let selectedAnswer = selectedOption.textContent;
     let correctAnswer = questions[currentQuestionIndex].answer;
     if (selectedAnswer === correctAnswer) {
-        score ++;
-        resultsContainer.textContent = "Correct!";
+        score++;
+        resultContainer.textContent = "Correct!";
     } else {
         timeLeft -= 10;
         if (timeLeft < 0) {
             timeLeft = 0;
         }
-        resultsContainer.textContent = "Incorrect!";
-        }
-        if (currentQuestionIndex< questions.length -1) {
-            setTimeout(showNextQuestion, 1000);
-        } else {
-            endQuiz();
-        }
+        resultContainer.textContent = "Incorrect!";
+    }
+    setTimeout(showNextQuestion, 1000);
 }
 
 function endQuiz() {
@@ -103,7 +108,7 @@ function endQuiz() {
         let initials = initialsInput.value;
         let highScores = localStorage.getItem("highScores") || "";
         highScores += initials + ": " + score + ";";
-        localStorage.setItems("highScores", highScores);
+        localStorage.setItem("highScores", highScores);
     });
     resultsContainer.appendChild(saveButton);
 }
