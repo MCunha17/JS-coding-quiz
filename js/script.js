@@ -88,7 +88,12 @@ function selectOption(event) {
         }
         resultContainer.textContent = "Incorrect!";
     }
-    setTimeout(showNextQuestion, 1000);
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        setTimeout(showNextQuestion, 1000);
+    } else {
+        setTimeout(endQuiz, 1000);
+    }
 }
 
 function endQuiz() {
