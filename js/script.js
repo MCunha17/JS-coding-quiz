@@ -97,5 +97,13 @@ function endQuiz() {
     initialsInput.setAttribute("placeholder", "Enter your initials");
     resultsContainer.appendChild(initialsInput);
 
-    
+    let saveButton = document.createElement("button");
+    saveButton.textContent = "Save";
+    saveButton.addEventListener("click", function() {
+        let initials = initialsInput.value;
+        let highScores = localStorage.getItem("highScores") || "";
+        highScores += initials + ": " + score + ";";
+        localStorage.setItems("highScores", highScores);
+    });
+    resultsContainer.appendChild(saveButton);
 }
