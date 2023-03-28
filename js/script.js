@@ -60,8 +60,8 @@ function showNextQuestion() {
 function startTimer() {
     timerInterval= setInterval(function() {
         timeLeft--;
-        timer.textContent= timeRemaining;
-        if (timeRemaining === 0) endQuiz();
+        timer.textContent= timeLeft;
+        if (timeLeft === 0) endQuiz();
     }, 1000);
 }
 
