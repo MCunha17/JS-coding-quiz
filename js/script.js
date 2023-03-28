@@ -84,4 +84,13 @@ function selectOption(event) {
         } else {
             endQuiz();
         }
-        }
+}
+
+function endQuiz() {
+    clearInterval(timerInterval);
+    questionText.textContent = "Game Over!";
+    optionsContainer.innerHTML = "";
+    resultsContainer.innerHTML = "Your Score: " + score;
+
+    
+}
