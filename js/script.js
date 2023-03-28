@@ -48,6 +48,8 @@ function showNextQuestion() {
         let optionElement = document.createElement("div");
         optionElement.classList.add("option");
         optionElement.textContent = option;
+        optionElement.style.cursor = "pointer";
+        optionElement.style.pointerEvents = "auto";
         optionElement.addEventListener("click", selectOption);
         optionsContainer.appendChild(optionElement);
     }
@@ -67,13 +69,13 @@ function selectOption(event) {
     let correctAnswer = questions[currentQuestionIndex].answer;
     if (selectedAnswer === correctAnswer) {
         score++;
-        resultContainer.textContent = "Correct!";
+        resultsContainer.textContent = "Correct!";
     } else {
         timeLeft -= 10;
         if (timeLeft < 0) {
             timeLeft = 0;
         }
-        resultContainer.textContent = "Incorrect!";
+        resultsContainer.textContent = "Incorrect!";
     }
     currentQuestionIndex++;
     if (currentQuestionIndex < questions.length) {
