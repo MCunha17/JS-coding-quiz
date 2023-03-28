@@ -1,6 +1,6 @@
 // Variable Definitions
 var startButton = document.querySelector("#start-button");
-var timer = document.querySelector("timer span");
+var timer = document.querySelector("#timer-span");
 var questionText = document.querySelector("#question-text");
 var optionsContainer = document.querySelector("#options-container");
 var resultsContainer = document.querySelector("#results-container")
