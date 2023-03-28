@@ -14,7 +14,7 @@ let timerInterval;
 
 // Event Listiners
 startButton.addEventListener("click", startQuiz);
-
+document.querySelector("#high-scores-button").addEventListener("click", showHighScores);
 
 // Question Index
 var questions = [
@@ -52,15 +52,16 @@ function showNextQuestion() {
     questionText.textContent = questions[currentQuestionIndex].question;
     optionsContainer.innerHTML = "";
     for (let option of questions[currentQuestionIndex].options) {
-        let optionElement = document.createElement("div");
-        optionElement.classList.add("option");
-        optionElement.textContent = option;
-        optionElement.style.cursor = "pointer";
-        optionElement.style.pointerEvents = "auto";
-        optionElement.addEventListener("click", selectOption);
-        optionsContainer.appendChild(optionElement);
+      let optionButton = document.createElement("button");
+      optionButton.classList.add("option");
+      optionButton.textContent = option;
+      optionButton.style.cursor = "pointer";
+      optionButton.style.pointerEvents = "auto";
+      optionButton.addEventListener("click", selectOption);
+      optionButton.style.display = "block";
+      optionsContainer.appendChild(optionButton);
     }
-}
+  }
 
 function startTimer() {
     timerInterval = setInterval(function() {
@@ -147,6 +148,3 @@ function endQuiz() {
     optionsContainer.style.display = "none";
     highScoresContainer.style.display = "block";
     }
-
-    // Event Listener
-document.querySelector("#high-scores-button").addEventListener("click", showHighScores);

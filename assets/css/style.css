@@ -2,7 +2,7 @@
 * {
     box-sizing: border-box;
     background: white;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 24px;
     color: black;
   }
@@ -11,6 +11,7 @@
   h1 {
     font-size: 48px;
     text-align: center;
+    padding-top: 20px;
   }
   
   /* Timer style */
@@ -18,7 +19,8 @@
     position: fixed;
     top: 0;
     right: 0;
-    padding: 10px;
+    padding: 20px;
+    font-size: 16px;
   }
   
   h2 {
@@ -39,12 +41,24 @@
     margin: 0 auto;
   }
   
+  .option {
+    background: #321D70;
+    color: white;
+    border-radius: 10px;
+    padding: 10px 20px;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .option:hover {
+    background-color: #eee;
+  }
   #instructions-container {
     text-align: center;
   }
   
   #start-button {
-    background: purple;
+    background: #321D70;
     color: white;
     border-radius: 10px;
     padding: 10px 20px;
@@ -88,18 +102,13 @@
     text-align: center;
   }
 
-  /* High Scores button */
 /* High Scores button */
 #high-scores-button {
-  color: #B46DE1;
-  border-radius: 10px;
-  padding: 10px 20px;
-  display: block;
-  margin: 0 auto;
-  margin-top: 20px;
   position: fixed;
   top: 10px;
   left: 10px;
+  font-size: 18px;
+  color: #B46DE1;
 }
 
 /* High scores container */
@@ -107,26 +116,4 @@
   text-align: center;
   max-width: 800px;
   margin: 0 auto;
-}
-
-#high-scores-container h2 {
-  font-size: 48px;
-  margin-top: 50px;
-  margin-bottom: 30px;
-}
-
-#high-scores-container ul {
-  padding: 0;
-  margin: 0 auto;
-  max-width: 500px;
-  text-align: left;
-}
-
-#high-scores-container li {
-  margin-bottom: 10px;
-  font-size: 24px;
-}
-
-#high-scores-container li:last-child {
-  margin-bottom: 0;
 }
