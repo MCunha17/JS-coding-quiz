@@ -79,7 +79,7 @@ function selectOption(event) {
         }
         resultsContainer.textContent = "Incorrect!";
         }
-        if (currentQuestionindex< questions.length -1) {
+        if (currentQuestionIndex< questions.length -1) {
             setTimeout(showNextQuestion, 1000);
         } else {
             endQuiz();
