@@ -92,5 +92,10 @@ function endQuiz() {
     optionsContainer.innerHTML = "";
     resultsContainer.innerHTML = "Your Score: " + score;
 
+    let initialsInput = document.createElement("input");
+    initialsInput.setAttribute("type", "text");
+    initialsInput.setAttribute("placeholder", "Enter your initials");
+    resultsContainer.appendChild(initialsInput);
+
     
 }
