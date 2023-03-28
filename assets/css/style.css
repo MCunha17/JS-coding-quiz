@@ -5,61 +5,85 @@
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 24px;
     color: black;
-}
-
-/* Header styles */
-h1 {
+  }
+  
+  /* Header styles */
+  h1 {
     font-size: 48px;
     text-align: center;
-}
-
-/* Timer style */
-header {
+  }
+  
+  /* Timer style */
+  header {
     position: fixed;
     top: 0;
     right: 0;
     padding: 10px;
-}
-
-h2 {
+  }
+  
+  h2 {
     font-size: 24px;
     margin: 0;
-}
-
-body {
+  }
+  
+  body {
     position: relative;
     margin: 0;
     padding-top: 50px;
-}
-
-/* Main style */
-main {
+  }
+  
+  /* Main style */
+  main {
     text-align: center;
     max-width: 800px;
     margin: 0 auto;
-}
-
-#instructions-container {
+  }
+  
+  #instructions-container {
     text-align: center;
-}
-
-#start-button {
+  }
+  
+  #start-button {
     background: purple;
     color: white;
     border-radius: 10px;
     padding: 10px 20px;
-}
-
-#question-container {
+  }
+  
+  #question-container {
     text-align: left;
-}
-
-#question-text {
+  }
+  
+  #question-text {
     text-align: center;
-}
-
-#results-container {
-    border-bottom: 2px solid black;
-    padding-bottom: 10px;
+  }
+  
+  #results-container.bordered {
+    border-top: 2px solid gray;
+    padding-top: 10px;
     margin-bottom: 10px;
-}
+  }
+  
+  #results-container.bordered::before {
+    content: attr(data-content);
+    display: block;
+    margin-bottom: 10px;
+    text-align: left;
+  }
+  
+  #results-container.bordered p {
+    text-align: left;
+  }
+  
+  #results-container.bordered button {
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+  }
+  
+  #results-container input,
+  #results-container button {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+  }

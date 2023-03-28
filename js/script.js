@@ -77,15 +77,19 @@ function selectOption(event) {
         }
         resultsContainer.textContent = "Incorrect!";
     }
+    resultsContainer.classList.add("bordered");
+    resultsContainer.setAttribute("data-content", resultsContainer.textContent);
     currentQuestionIndex++;
     if (currentQuestionIndex < questions.length) {
         setTimeout(function() {
             resultsContainer.textContent = "";
+            resultsContainer.classList.remove("bordered");
             showNextQuestion();
         }, 2000);
     } else {
         setTimeout(function() {
             resultsContainer.textContent = "";
+            resultsContainer.classList.remove("bordered");
             endQuiz();
         }, 2000);
     }
@@ -95,13 +99,17 @@ function endQuiz() {
     clearInterval(timerInterval);
     questionText.textContent = "Game Over!";
     optionsContainer.innerHTML = "";
-    resultsContainer.innerHTML = "Your Score: " + score;
-
+    
+    let scoreMessage = document.createElement("h3");
+    scoreMessage.textContent = "Your Score: " + score;
+    scoreMessage.style.textAlign = "center";
+    optionsContainer.appendChild(scoreMessage);
+    
     let initialsInput = document.createElement("input");
     initialsInput.setAttribute("type", "text");
     initialsInput.setAttribute("placeholder", "Enter your initials");
-    resultsContainer.appendChild(initialsInput);
-
+    optionsContainer.appendChild(initialsInput);
+  
     let saveButton = document.createElement("button");
     saveButton.textContent = "Save";
     saveButton.addEventListener("click", function() {
@@ -110,5 +118,5 @@ function endQuiz() {
         highScores += initials + ": " + score + ";";
         localStorage.setItem("highScores", highScores);
     });
-    resultsContainer.appendChild(saveButton);
-}
+    optionsContainer.appendChild(saveButton);
+  }
