@@ -13,10 +13,6 @@ let score = 0;
 let timerInterval;
 let optionSelected = false;
 
-// Event Listiners
-startButton.addEventListener("click", startQuiz);
-document.querySelector("#high-scores-button").addEventListener("click", showHighScores);
-
 // Question Index
 var questions = [
     {
@@ -134,22 +130,37 @@ function endQuiz() {
     optionsContainer.appendChild(saveButton);
   }
 
-  function showHighScores() {
+// Function to show high scores
+function showHighScores() {
+    // Get high scores from local storage
     let highScores = localStorage.getItem("highScores") || "";
+
+    // Create an unordered list to display high scores
     let scoresList = document.createElement("ul");
     scoresList.style.listStyleType = "none";
+
+    // Loop through high scores and add each one as a list item
     for (let score of highScores.split(";")) {
-    if (score.trim() !== "") {
-    let scoreItem = document.createElement("li");
-    scoreItem.textContent = score;
-    scoresList.appendChild(scoreItem);
+        if (score.trim() !== "") {
+            let scoreItem = document.createElement("li");
+            scoreItem.textContent = score;
+            scoresList.appendChild(scoreItem);
+        }
     }
-    }
+
+    // Clear and update high scores container
     highScoresContainer.innerHTML = "";
     let title = document.createElement("h2");
     title.textContent = "High Scores";
     highScoresContainer.appendChild(title);
     highScoresContainer.appendChild(scoresList);
-    optionsContainer.style.display = "none";
+
+    // Hide quiz and show high scores container
+    instructionsContainer.style.display = "none";
+    quizContainer.style.display = "none";
     highScoresContainer.style.display = "block";
-    }
+}
+ 
+  // Event Listiners
+startButton.addEventListener("click", startQuiz);
+document.querySelector("#high-scores-link").addEventListener("click", showHighScores);

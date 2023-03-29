@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+    <!-- High scores button -->
+    <a id="high-scores-link" href="#">View high scores</a>
+
     <!-- Timer -->
     <header>
         <h2 id="timer">Time: <span>60</span></h2>
@@ -16,22 +19,19 @@
             <h1>Coding Quiz Challenge</h1>
             <p>Answer the following code-related within 60 seconds. Each incorrect answer will reduce your remaining time by ten seconds.</p>
             <button id="start-button">Start Quiz</button>
-            <!-- High scores button -->
-            <button id="high-scores-button">View high scores</button>
         </section>
         <!-- Container for quiz questions and selection options -->
         <section id="quiz-container">
             <div id="question-container">
-                <h3 id="question-text"></h2>
+                <h3 id="question-text"></h3>
                 <div id="options-container"></div>
             </div>
             <div id="results-container"></div>
-      <!-- High scores container -->
+        </section>
+        <!-- High scores container -->
         <section id="high-scores-container" style="display: none;">
         </section>
     </main>
-        <script src="js/script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
-
-
