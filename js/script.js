@@ -15,15 +15,15 @@ let score = 0;
 let timerInterval;
 let optionSelected = false;
 
-  // Event listeners
-  startButton.addEventListener("click", startQuiz);
-  document.getElementById("high-scores-link").addEventListener("click", function () {
-    showHighScores();
-    // Hide the high scores link
-    document.getElementById("high-scores-link").style.display = "none";
-  });
+// Event listeners
+startButton.addEventListener("click", startQuiz);
+document.getElementById("high-scores-link").addEventListener("click", function () {
+showHighScores();
+// Hide the 'View high scores' link when viewing high scores
+document.getElementById("high-scores-link").style.display = "none";
+});
 
-// Question questions
+// Questions
 var questions = [
     {
         question: "What does the acronym 'DOM' stand for?",
@@ -43,15 +43,16 @@ var questions = [
 ]
 
 // Function definitions
+// Start quiz
 function startQuiz() {
-        instructionsContainer.style.display = "none";
-        startButton.style.display = "none";
-        quizContainer.style.display = "block";
-        startTimer();
-        showNextQuestion();
-      }
+    instructionsContainer.style.display = "none";
+    startButton.style.display = "none";
+    quizContainer.style.display = "block";
+    startTimer();
+    showNextQuestion();
+    }
       
-
+// Show next question
 function showNextQuestion() {
   resultsContainer.style.display = "none";
   questionText.textContent = questions[currentQuestionIndex].question;
@@ -99,16 +100,12 @@ function selectOption(event) {
       setTimeout(function() {
         resultsContainer.style.display = "none";
         resultsContainer.classList.remove("bordered");
-        // Remove the following line
-        // resultsContainer.removeAttribute("data-content");
         showNextQuestion();
       }, 2000);
     } else {
       setTimeout(function() {
         resultsContainer.style.display = "none";
         resultsContainer.classList.remove("bordered");
-        // Remove the following line
-        // resultsContainer.removeAttribute("data-content");
         endQuiz();
       }, 1000);
     }
@@ -163,38 +160,52 @@ function endQuiz() {
     highScoresArr.sort(function (a, b) {
       return b.split(":")[1] - a.split(":")[1];
     });
-    for (let i = 0; i < highScoresArr.length && i < 10; i++) {
-      let [initials, score] = highScoresArr[i].split(":");
-      let scoreItem = document.createElement("li");
-      scoreItem.textContent = `${i + 1}. ${initials.toUpperCase()} - ${score}`;
-      scoresList.appendChild(scoreItem);
-    }
+    if (highScoresArr.length > 0) {
+      for (let i = 0; i < highScoresArr.length && i < 10; i++) {
+        let [initials, score] = highScoresArr[i].split(":");
+        let scoreItem = document.createElement("li");
+        scoreItem.textContent = `${i + 1}. ${initials.toUpperCase()} - ${score}`;
+        scoresList.appendChild(scoreItem);
+      }
   
     // Create buttons to go back and clear high scores
     let backButton = document.createElement("button");
     backButton.textContent = "Go Back";
-    backButton.addEventListener("click", function() {
+    backButton.addEventListener("click", function () {
       highScoresContainer.style.display = "none";
       instructionsContainer.style.display = "block";
+      timeLeft = 60; // Reset the timer
+      currentQuestionIndex = 0; // Reset the current question index
+      score = 0; // Reset the score
+      clearInterval(timerInterval); // Stop the timer interval
+      startButton.style.display = "block"; // Show the start quiz button
+      document.getElementById("high-scores-link").style.display = "block"; // Show the View High Scores link
+      timer.style.display = "block"; // Show the timer
     });
+    
     let clearButton = document.createElement("button");
     clearButton.textContent = "Clear High Scores";
-    clearButton.addEventListener("click", function() {
+    clearButton.addEventListener("click", function () {
       localStorage.removeItem("highScores");
+      scoresList.remove();
+      scoresItem.remove();
       showHighScores();
     });
-  
+     
     // Clear and update high scores container
     highScoresContainer.innerHTML = "";
-    let title = document.createElement("h2");
+    let title = document.createElement("score-list");
     title.textContent = "High Scores";
     highScoresContainer.appendChild(title);
     highScoresContainer.appendChild(scoresList);
     highScoresContainer.appendChild(backButton);
     highScoresContainer.appendChild(clearButton);
-
-// Hide quiz and show high scores container
-instructionsContainer.style.display = "none";
-quizContainer.style.display = "none";
-highScoresContainer.style.display = "block";
-};
+  
+    // Hide quiz and show high scores container
+    instructionsContainer.style.display = "none";
+    quizContainer.style.display = "none";
+    highScoresContainer.style.display = "block";
+    document.getElementById("high-scores-link").style.display = "none"; // Hide the View High Scores link
+    timer.style.display = "none"; // Hide the timer
+  }
+}
