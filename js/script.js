@@ -11,6 +11,7 @@ let currentQuestionIndex = 0;
 let timeLeft = 60;
 let score = 0;
 let timerInterval;
+let optionSelected = false;
 
 // Event Listiners
 startButton.addEventListener("click", startQuiz);
@@ -49,6 +50,7 @@ function startQuiz() {
 }
 
 function showNextQuestion() {
+    resultsContainer.style.display = "none";
     questionText.textContent = questions[currentQuestionIndex].question;
     optionsContainer.innerHTML = "";
     for (let option of questions[currentQuestionIndex].options) {
@@ -61,7 +63,7 @@ function showNextQuestion() {
       optionButton.style.display = "block";
       optionsContainer.appendChild(optionButton);
     }
-  }
+}
 
 function startTimer() {
     timerInterval = setInterval(function() {
@@ -75,33 +77,36 @@ function selectOption(event) {
     let selectedOption = event.target;
     let selectedAnswer = selectedOption.textContent;
     let correctAnswer = questions[currentQuestionIndex].answer;
+    let resultMessage = "";
     if (selectedAnswer === correctAnswer) {
-        score++;
-        resultsContainer.textContent = "Correct!";
+      score++;
+      resultMessage = "Correct!";
     } else {
-        timeLeft -= 10;
-        if (timeLeft < 0) {
-            timeLeft = 0;
-        }
-        resultsContainer.textContent = "Incorrect!";
+      timeLeft -= 10;
+      if (timeLeft < 0) {
+        timeLeft = 0;
+      }
+      resultMessage = "Wrong!";
     }
+    resultsContainer.textContent = resultMessage;
     resultsContainer.classList.add("bordered");
-    resultsContainer.setAttribute("data-content", resultsContainer.textContent);
+    resultsContainer.setAttribute("data-content", resultMessage);
+    resultsContainer.style.display = "block";
     currentQuestionIndex++;
     if (currentQuestionIndex < questions.length) {
-        setTimeout(function() {
-            resultsContainer.textContent = "";
-            resultsContainer.classList.remove("bordered");
-            showNextQuestion();
-        }, 2000);
+      setTimeout(function() {
+        resultsContainer.style.display = "none";
+        resultsContainer.classList.remove("bordered");
+        showNextQuestion();
+      }, 2000);
     } else {
-        setTimeout(function() {
-            resultsContainer.textContent = "";
-            resultsContainer.classList.remove("bordered");
-            endQuiz();
-        }, 2000);
+      setTimeout(function() {
+        resultsContainer.style.display = "none";
+        resultsContainer.classList.remove("bordered");
+        endQuiz();
+      }, 1000);
     }
-}
+  }
 
 function endQuiz() {
     clearInterval(timerInterval);
