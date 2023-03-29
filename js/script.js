@@ -1,19 +1,25 @@
-// Variable Definitions
+// Variable definitions (DOM elements)
 var startButton = document.querySelector("#start-button");
-var timer = document.querySelector("#timer");
-var questionText = document.querySelector("#question-text");
-var optionsContainer = document.querySelector("#options-container");
-var resultsContainer = document.querySelector("#results-container");
-var instructionsContainer = document.querySelector("#instructions-container");
-var highScoresContainer = document.querySelector("#high-scores-container");
+  var timer = document.querySelector("#timer");
+  var quizContainer = document.querySelector("#quiz-container");
+  var questionText = document.querySelector("#question-text");
+  var optionsContainer = document.querySelector("#options-container");
+  var resultsContainer = document.querySelector("#results-container");
+  var instructionsContainer = document.querySelector("#instructions-container");
+  var highScoresContainer = document.querySelector("#high-scores-container");
 
+// Quiz variables
 let currentQuestionIndex = 0;
 let timeLeft = 60;
 let score = 0;
 let timerInterval;
 let optionSelected = false;
 
-// Question Index
+  // Event listeners
+  startButton.addEventListener("click", startQuiz);
+  document.getElementById("high-scores-link").addEventListener("click", showHighScores);
+
+// Question questions
 var questions = [
     {
         question: "What does the acronym 'DOM' stand for?",
@@ -30,43 +36,40 @@ var questions = [
         options: ["1. if (condition) {code block}", "2. if condition {code block}", "3. if [condition] {cod block}", "4. if (condition) then {code block}"],
         answer: "1. if (condition) {code block}",
     },
-    {
-        question: "Which of the following is the correct syntax for an if statement in JavaScript?",
-        options: ["1. if (condition) {code block}", "2. if condition {code block}", "3. if [condition] {cod block}", "4. if (condition) then {code block}"],
-        answer: "1. if (condition) {code block}",
-    }
 ]
 
-// Function Definitions
+// Function definitions
 function startQuiz() {
-    instructionsContainer.style.display = "none";
-    startButton.style.display = "none";
-    startTimer();
-    showNextQuestion();
-}
+        instructionsContainer.style.display = "none";
+        startButton.style.display = "none";
+        quizContainer.style.display = "block";
+        startTimer();
+        showNextQuestion();
+      }
+      
 
 function showNextQuestion() {
-    resultsContainer.style.display = "none";
-    questionText.textContent = questions[currentQuestionIndex].question;
-    optionsContainer.innerHTML = "";
-    for (let option of questions[currentQuestionIndex].options) {
-      let optionButton = document.createElement("button");
-      optionButton.classList.add("option");
-      optionButton.textContent = option;
-      optionButton.style.cursor = "pointer";
-      optionButton.style.pointerEvents = "auto";
-      optionButton.addEventListener("click", selectOption);
-      optionButton.style.display = "block";
-      optionsContainer.appendChild(optionButton);
-    }
+  resultsContainer.style.display = "none";
+  questionText.textContent = questions[currentQuestionIndex].question;
+  optionsContainer.innerHTML = "";
+  for (let option of questions[currentQuestionIndex].options) {
+    let optionButton = document.createElement("button");
+    optionButton.classList.add("option");
+    optionButton.textContent = option;
+    optionButton.style.cursor = "pointer";
+    optionButton.style.pointerEvents = "auto";
+    optionButton.addEventListener("click", selectOption);
+    optionButton.style.display = "block";
+    optionsContainer.appendChild(optionButton);
+  }
 }
 
 function startTimer() {
     timerInterval = setInterval(function() {
-        timeLeft--;
-        timer.querySelector("span").textContent = timeLeft;
-        if (timeLeft === 0) endQuiz();
-    }, 1000);
+    timeLeft--;
+    timer.querySelector("span").textContent = timeLeft;
+    if (timeLeft === 0) endQuiz();
+  }, 1000);
 }
 
 function selectOption(event) {
@@ -86,34 +89,40 @@ function selectOption(event) {
     }
     resultsContainer.textContent = resultMessage;
     resultsContainer.classList.add("bordered");
-    resultsContainer.setAttribute("data-content", resultMessage);
+    // Remove the following line
+    // resultsContainer.setAttribute("data-content", resultMessage);
     resultsContainer.style.display = "block";
     currentQuestionIndex++;
     if (currentQuestionIndex < questions.length) {
       setTimeout(function() {
         resultsContainer.style.display = "none";
         resultsContainer.classList.remove("bordered");
+        // Remove the following line
+        // resultsContainer.removeAttribute("data-content");
         showNextQuestion();
       }, 2000);
     } else {
       setTimeout(function() {
         resultsContainer.style.display = "none";
         resultsContainer.classList.remove("bordered");
+        // Remove the following line
+        // resultsContainer.removeAttribute("data-content");
         endQuiz();
       }, 1000);
     }
-  }
+}
 
-function endQuiz() {
+  
+  function endQuiz() {
     clearInterval(timerInterval);
     questionText.textContent = "Game Over!";
     optionsContainer.innerHTML = "";
-    
+  
     let scoreMessage = document.createElement("h3");
     scoreMessage.textContent = "Your Score: " + score;
     scoreMessage.style.textAlign = "center";
     optionsContainer.appendChild(scoreMessage);
-    
+  
     let initialsInput = document.createElement("input");
     initialsInput.setAttribute("type", "text");
     initialsInput.setAttribute("placeholder", "Enter your initials");
@@ -122,45 +131,60 @@ function endQuiz() {
     let saveButton = document.createElement("button");
     saveButton.textContent = "Save";
     saveButton.addEventListener("click", function() {
-        let initials = initialsInput.value;
-        let highScores = localStorage.getItem("highScores") || "";
-        highScores += initials + ": " + score + ";";
-        localStorage.setItem("highScores", highScores);
+      let initials = initialsInput.value;
+      let highScores = localStorage.getItem("highScores") || "";
+      highScores += initials + ": " + score + ";";
+      localStorage.setItem("highScores", highScores);
     });
     optionsContainer.appendChild(saveButton);
   }
-
-// Function to show high scores
-function showHighScores() {
+  
+  function showHighScores() {
     // Get high scores from local storage
     let highScores = localStorage.getItem("highScores") || "";
-
+  
     // Create an unordered list to display high scores
     let scoresList = document.createElement("ul");
     scoresList.style.listStyleType = "none";
-
+  
     // Loop through high scores and add each one as a list item
-    for (let score of highScores.split(";")) {
-        if (score.trim() !== "") {
-            let scoreItem = document.createElement("li");
-            scoreItem.textContent = score;
-            scoresList.appendChild(scoreItem);
-        }
+    let highScoresArr = highScores.split(";");
+    highScoresArr.sort(function(a, b) {
+      return b.split(":")[1] - a.split(":")[1];
+    });
+    for (let score of highScoresArr) {
+      if (score.trim() !== "") {
+        let scoreItem = document.createElement("li");
+        scoreItem.textContent = score;
+        scoresList.appendChild(scoreItem);
+      }
     }
-
+  
+    // Create buttons to go back and clear high scores
+    let backButton = document.createElement("button");
+    backButton.textContent = "Go Back";
+    backButton.addEventListener("click", function() {
+      highScoresContainer.style.display = "none";
+      instructionsContainer.style.display = "block";
+    });
+    let clearButton = document.createElement("button");
+    clearButton.textContent = "Clear High Scores";
+    clearButton.addEventListener("click", function() {
+      localStorage.removeItem("highScores");
+      showHighScores();
+    });
+  
     // Clear and update high scores container
     highScoresContainer.innerHTML = "";
     let title = document.createElement("h2");
     title.textContent = "High Scores";
     highScoresContainer.appendChild(title);
     highScoresContainer.appendChild(scoresList);
+    highScoresContainer.appendChild(backButton);
+    highScoresContainer.appendChild(clearButton);
 
-    // Hide quiz and show high scores container
-    instructionsContainer.style.display = "none";
-    quizContainer.style.display = "none";
-    highScoresContainer.style.display = "block";
-}
- 
-  // Event Listiners
-startButton.addEventListener("click", startQuiz);
-document.querySelector("#high-scores-link").addEventListener("click", showHighScores);
+// Hide quiz and show high scores container
+instructionsContainer.style.display = "none";
+quizContainer.style.display = "none";
+highScoresContainer.style.display = "block";
+};

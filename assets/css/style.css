@@ -7,7 +7,7 @@
   color: black;
 }
 
-/* Header styles */
+/* Title style */
 h1 {
   font-size: 48px;
   text-align: center;
@@ -54,6 +54,10 @@ main {
   padding: 10px 20px;
 }
 
+#start-button:hover {
+  background-color: #B46DE1;
+}
+
 /* Questions and options style */
 #question-container {
   text-align: left;
@@ -66,6 +70,7 @@ main {
   padding: 10px 20px;
   justify-content: space-between;
   margin-bottom: 10px;
+  font-size: 18px;
 }
 
 .option:hover {
@@ -76,6 +81,9 @@ main {
   border-top: 2px solid gray;
   padding-top: 10px;
   margin-bottom: 10px;
+  text-align: left;
+  color: lightgray;
+  font-style: italic;
 }
 
 #results-container.bordered::before {
