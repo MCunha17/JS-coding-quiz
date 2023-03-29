@@ -17,7 +17,11 @@ let optionSelected = false;
 
   // Event listeners
   startButton.addEventListener("click", startQuiz);
-  document.getElementById("high-scores-link").addEventListener("click", showHighScores);
+  document.getElementById("high-scores-link").addEventListener("click", function () {
+    showHighScores();
+    // Hide the high scores link
+    document.getElementById("high-scores-link").style.display = "none";
+  });
 
 // Question questions
 var questions = [
