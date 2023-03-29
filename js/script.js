@@ -89,8 +89,6 @@ function selectOption(event) {
     }
     resultsContainer.textContent = resultMessage;
     resultsContainer.classList.add("bordered");
-    // Remove the following line
-    // resultsContainer.setAttribute("data-content", resultMessage);
     resultsContainer.style.display = "block";
     currentQuestionIndex++;
     if (currentQuestionIndex < questions.length) {
@@ -113,31 +111,40 @@ function selectOption(event) {
 }
 
   
-  function endQuiz() {
+function endQuiz() {
     clearInterval(timerInterval);
-    questionText.textContent = "Game Over!";
+    questionText.textContent = "All done!";
     optionsContainer.innerHTML = "";
   
-    let scoreMessage = document.createElement("h3");
-    scoreMessage.textContent = "Your Score: " + score;
-    scoreMessage.style.textAlign = "center";
+    let formContainer = document.createElement("div");
+    formContainer.classList.add("form-container");
+  
+    let scoreMessage = document.createElement("h4");
+    scoreMessage.textContent = "Your final score is " + score + ".";
     optionsContainer.appendChild(scoreMessage);
+  
+    let initialsLabel = document.createElement("label");
+    initialsLabel.textContent = "Enter initials: ";
+    initialsLabel.classList.add("initials-label");
+    formContainer.appendChild(initialsLabel);
   
     let initialsInput = document.createElement("input");
     initialsInput.setAttribute("type", "text");
-    initialsInput.setAttribute("placeholder", "Enter your initials");
-    optionsContainer.appendChild(initialsInput);
+    formContainer.appendChild(initialsInput);
   
     let saveButton = document.createElement("button");
-    saveButton.textContent = "Save";
-    saveButton.addEventListener("click", function() {
+    saveButton.textContent = "Submit";
+    saveButton.addEventListener("click", function () {
       let initials = initialsInput.value;
       let highScores = localStorage.getItem("highScores") || "";
       highScores += initials + ": " + score + ";";
       localStorage.setItem("highScores", highScores);
+      showHighScores();
     });
-    optionsContainer.appendChild(saveButton);
+    formContainer.appendChild(saveButton);
+    optionsContainer.appendChild(formContainer);
   }
+  
   
   function showHighScores() {
     // Get high scores from local storage
@@ -149,15 +156,14 @@ function selectOption(event) {
   
     // Loop through high scores and add each one as a list item
     let highScoresArr = highScores.split(";");
-    highScoresArr.sort(function(a, b) {
+    highScoresArr.sort(function (a, b) {
       return b.split(":")[1] - a.split(":")[1];
     });
-    for (let score of highScoresArr) {
-      if (score.trim() !== "") {
-        let scoreItem = document.createElement("li");
-        scoreItem.textContent = score;
-        scoresList.appendChild(scoreItem);
-      }
+    for (let i = 0; i < highScoresArr.length && i < 10; i++) {
+      let [initials, score] = highScoresArr[i].split(":");
+      let scoreItem = document.createElement("li");
+      scoreItem.textContent = `${i + 1}. ${initials.toUpperCase()} - ${score}`;
+      scoresList.appendChild(scoreItem);
     }
   
     // Create buttons to go back and clear high scores
