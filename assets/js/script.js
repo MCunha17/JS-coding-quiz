@@ -37,8 +37,43 @@ var questions = [
     },
     {
         question: "Which of the following is the correct syntax for an if statement in JavaScript?",
-        options: ["1. if (condition) {code block}", "2. if condition {code block}", "3. if [condition] {cod block}", "4. if (condition) then {code block}"],
+        options: ["1. if (condition) {code block}", "2. if condition {code block}", "3. if [condition] {code block}", "4. if (condition) then {code block}"],
         answer: "1. if (condition) {code block}",
+    },
+    {
+      question: "Which operator is used to concatenate two strings in JavaScript?",
+      options: ["1. +", "2. -", "3. *", "4. /"],
+      answer: "1. +",
+    },
+    {
+      question: "Which operator is used to compare two values in JavaScript?",
+      options: ["1. =", "2. ==", "3. ===", "4. !=="],
+      answer: "4. !==",
+    },
+    {
+      question: "Which method is used to add an element to the end of an array in JavaScript?",
+      options: ["1. push()", "2. pop()", "3. shift()", "4. unshift()"],
+      answer: "1. push()",
+    },
+    {
+      question: "Which method is used to remove the last element from an array in JavaScript?",
+      options: ["1. push()", "2. pop()", "3. shift()", "4. unshift()"],
+      answer: "2. pop()",
+    },
+    {
+      question: "Which keyword is used to declare a variable in JavaScript?",
+      options: ["1. var", "2. let", "3. const", "4. All of the above"],
+      answer: "4. All of the above",
+    },
+    {
+      question: "Which method is used to remove whitespace from both sides of a string in JavaScript?",
+      options: ["1. slice()", "2. splice()", "3. trim()", "4. split()"],
+      answer: "3. trim()",
+    },
+    {
+      question: "Which method is used to return the index of the first occurence of a specified value in an array in JavaScript?",
+      options: ["1. indexOf()", "2. find()", "3. filter()", "4. map()"],
+      answer: "1. indexOf()",
     },
 ]
 
