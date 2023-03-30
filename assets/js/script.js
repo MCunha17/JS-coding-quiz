@@ -50,8 +50,7 @@ function startQuiz() {
     quizContainer.style.display = "block";
     startTimer();
     showNextQuestion();
-    }
-      
+    }     
 // Show next question
 function showNextQuestion() {
   resultsContainer.style.display = "none";
@@ -68,7 +67,7 @@ function showNextQuestion() {
     optionsContainer.appendChild(optionButton);
   }
 }
-
+// Start timer
 function startTimer() {
     timerInterval = setInterval(function() {
     timeLeft--;
@@ -76,7 +75,7 @@ function startTimer() {
     if (timeLeft === 0) endQuiz();
   }, 1000);
 }
-
+// Select answers
 function selectOption(event) {
     let selectedOption = event.target;
     let selectedAnswer = selectedOption.textContent;
@@ -110,8 +109,7 @@ function selectOption(event) {
       }, 1000);
     }
 }
-
-  
+// End quiz
 function endQuiz() {
     clearInterval(timerInterval);
     questionText.textContent = "All done!";
@@ -146,7 +144,6 @@ function endQuiz() {
     optionsContainer.appendChild(formContainer);
   }
   
-  
   function showHighScores() {
     // Get high scores from local storage
     let highScores = localStorage.getItem("highScores") || "";
@@ -168,18 +165,18 @@ function endQuiz() {
         scoresList.appendChild(scoreItem);
       }
   
-    // Create buttons to go back and clear high scores
+    // 'Go back' and 'clear' buttons
     let backButton = document.createElement("button");
     backButton.textContent = "Go Back";
     backButton.addEventListener("click", function () {
       highScoresContainer.style.display = "none";
       instructionsContainer.style.display = "block";
       timeLeft = 60; // Reset the timer
-      currentQuestionIndex = 0; // Reset the current question index
+      currentQuestionIndex = 0; // Reset the question index
       score = 0; // Reset the score
       clearInterval(timerInterval); // Stop the timer interval
-      startButton.style.display = "block"; // Show the start quiz button
-      document.getElementById("high-scores-link").style.display = "block"; // Show the View High Scores link
+      startButton.style.display = "block"; // Show the 'Start quiz' button
+      document.getElementById("high-scores-link").style.display = "block"; // Show the 'View High Scores' link
       timer.style.display = "block"; // Show the timer
     });
     
@@ -192,7 +189,6 @@ function endQuiz() {
       showHighScores();
     });
      
-    // Clear and update high scores container
     highScoresContainer.innerHTML = "";
     let title = document.createElement("score-list");
     title.textContent = "High Scores";
@@ -201,11 +197,10 @@ function endQuiz() {
     highScoresContainer.appendChild(backButton);
     highScoresContainer.appendChild(clearButton);
   
-    // Hide quiz and show high scores container
     instructionsContainer.style.display = "none";
     quizContainer.style.display = "none";
     highScoresContainer.style.display = "block";
-    document.getElementById("high-scores-link").style.display = "none"; // Hide the View High Scores link
-    timer.style.display = "none"; // Hide the timer
+    document.getElementById("high-scores-link").style.display = "none";
+    timer.style.display = "none";
   }
 }
