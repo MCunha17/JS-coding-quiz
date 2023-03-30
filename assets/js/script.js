@@ -1,29 +1,29 @@
 // Variable definitions (DOM elements)
+var instructionsContainer = document.querySelector("#instructions-container");
 var startButton = document.querySelector("#start-button");
-  var timer = document.querySelector("#timer");
-  var quizContainer = document.querySelector("#quiz-container");
-  var questionText = document.querySelector("#question-text");
-  var optionsContainer = document.querySelector("#options-container");
-  var resultsContainer = document.querySelector("#results-container");
-  var instructionsContainer = document.querySelector("#instructions-container");
-  var highScoresContainer = document.querySelector("#high-scores-container");
-
+var timer = document.querySelector("#timer");
+var quizContainer = document.querySelector("#quiz-container");
+var questionText = document.querySelector("#question-text");
+var optionsContainer = document.querySelector("#options-container");
+var resultsContainer = document.querySelector("#results-container");
+var highScoresContainer = document.querySelector("#high-scores-container");
 // Quiz variables
 let currentQuestionIndex = 0;
-let timeLeft = 60;
+let timeLeft = 75;
 let score = 0;
 let timerInterval;
 let optionSelected = false;
 
 // Event listeners
+// Calls startQuiz when 'Start Quiz' button is clicked
 startButton.addEventListener("click", startQuiz);
+// Calls showHighScores when 'View high scores' link is clicked
 document.getElementById("high-scores-link").addEventListener("click", function () {
 showHighScores();
 // Hide the 'View high scores' link when viewing high scores
 document.getElementById("high-scores-link").style.display = "none";
 });
-
-// Questions
+// Array - questions and answers
 var questions = [
     {
         question: "What does the acronym 'DOM' stand for?",
@@ -80,17 +80,21 @@ var questions = [
 // Function definitions
 // Start quiz
 function startQuiz() {
+    // Hides instructions and start button, shows quiz container
     instructionsContainer.style.display = "none";
     startButton.style.display = "none";
     quizContainer.style.display = "block";
+    // Starts timer and shows first question
     startTimer();
     showNextQuestion();
     }     
 // Show next question
 function showNextQuestion() {
+  // Hides results container and displays current question and options
   resultsContainer.style.display = "none";
   questionText.textContent = questions[currentQuestionIndex].question;
   optionsContainer.innerHTML = "";
+  // Displays and creates a button for each option
   for (let option of questions[currentQuestionIndex].options) {
     let optionButton = document.createElement("button");
     optionButton.classList.add("option");
@@ -107,13 +111,17 @@ function startTimer() {
     timerInterval = setInterval(function() {
     timeLeft--;
     timer.querySelector("span").textContent = timeLeft;
+    // Ends quiz if time runs out
     if (timeLeft === 0) endQuiz();
   }, 1000);
 }
 // Select answers
 function selectOption(event) {
-    let selectedOption = event.target;
-    let selectedAnswer = selectedOption.textContent;
+  // Gets the selected option and answer from event object and questions array
+  // Compares selected answer with correct answer and updates score and time left
+  // Displays the result message and moves to the next question or ends the quiz
+    let selectOption = event.target;
+    let selectedAnswer = selectOption.textContent;
     let correctAnswer = questions[currentQuestionIndex].answer;
     let resultMessage = "";
     if (selectedAnswer === correctAnswer) {
@@ -131,11 +139,13 @@ function selectOption(event) {
     resultsContainer.style.display = "block";
     currentQuestionIndex++;
     if (currentQuestionIndex < questions.length) {
+      // If there are more questions, hides the results message and shows the next question after 1 second
       setTimeout(function() {
         resultsContainer.style.display = "none";
         resultsContainer.classList.remove("bordered");
         showNextQuestion();
-      }, 2000);
+      }, 1000);
+      // If there are no more questions, hides the results message and calls endQuiz() function to finish the quiz after 1 second
     } else {
       setTimeout(function() {
         resultsContainer.style.display = "none";
@@ -146,26 +156,26 @@ function selectOption(event) {
 }
 // End quiz
 function endQuiz() {
+    // Stops the timer and displays the final score
     clearInterval(timerInterval);
     questionText.textContent = "All done!";
     optionsContainer.innerHTML = "";
-  
+
     let formContainer = document.createElement("div");
     formContainer.classList.add("form-container");
-  
+    // Displays final score
     let scoreMessage = document.createElement("h4");
     scoreMessage.textContent = "Your final score is " + score + ".";
-    optionsContainer.appendChild(scoreMessage);
-  
+    optionsContainer.appendChild(scoreMessage); 
     let initialsLabel = document.createElement("label");
     initialsLabel.textContent = "Enter initials: ";
     initialsLabel.classList.add("initials-label");
     formContainer.appendChild(initialsLabel);
-  
+    // Input box for initials
     let initialsInput = document.createElement("input");
     initialsInput.setAttribute("type", "text");
     formContainer.appendChild(initialsInput);
-  
+    // Submit button
     let saveButton = document.createElement("button");
     saveButton.textContent = "Submit";
     saveButton.addEventListener("click", function () {
@@ -178,16 +188,15 @@ function endQuiz() {
     formContainer.appendChild(saveButton);
     optionsContainer.appendChild(formContainer);
   }
-  
+
   function showHighScores() {
-    // Get high scores from local storage
+    // Gets high scores from local storage
     let highScores = localStorage.getItem("highScores") || "";
-  
-    // Create an unordered list to display high scores
+    // Displays list of high scores
     let scoresList = document.createElement("ul");
     scoresList.style.listStyleType = "none";
-  
-    // Loop through high scores and add each one as a list item
+
+
     let highScoresArr = highScores.split(";");
     highScoresArr.sort(function (a, b) {
       return b.split(":")[1] - a.split(":")[1];
@@ -199,22 +208,21 @@ function endQuiz() {
         scoreItem.textContent = `${i + 1}. ${initials.toUpperCase()} - ${score}`;
         scoresList.appendChild(scoreItem);
       }
-  
-    // 'Go back' and 'clear' buttons
+    // Goes back and resets quiz
     let backButton = document.createElement("button");
     backButton.textContent = "Go Back";
     backButton.addEventListener("click", function () {
       highScoresContainer.style.display = "none";
       instructionsContainer.style.display = "block";
-      timeLeft = 60; // Reset the timer
-      currentQuestionIndex = 0; // Reset the question index
-      score = 0; // Reset the score
-      clearInterval(timerInterval); // Stop the timer interval
-      startButton.style.display = "block"; // Show the 'Start quiz' button
-      document.getElementById("high-scores-link").style.display = "block"; // Show the 'View High Scores' link
-      timer.style.display = "block"; // Show the timer
+      timeLeft = 75;
+      currentQuestionIndex = 0;
+      score = 0;
+      clearInterval(timerInterval);
+      startButton.style.display = "block";
+      document.getElementById("high-scores-link").style.display = "block";
+      timer.style.display = "block";
     });
-    
+    // Clears high scores
     let clearButton = document.createElement("button");
     clearButton.textContent = "Clear High Scores";
     clearButton.addEventListener("click", function () {
@@ -223,7 +231,7 @@ function endQuiz() {
       scoresItem.remove();
       showHighScores();
     });
-     
+
     highScoresContainer.innerHTML = "";
     let title = document.createElement("score-list");
     title.textContent = "High Scores";
@@ -231,7 +239,7 @@ function endQuiz() {
     highScoresContainer.appendChild(scoresList);
     highScoresContainer.appendChild(backButton);
     highScoresContainer.appendChild(clearButton);
-  
+
     instructionsContainer.style.display = "none";
     quizContainer.style.display = "none";
     highScoresContainer.style.display = "block";
